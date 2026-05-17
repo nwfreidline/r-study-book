@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Introduction to R and RStudio</title>
+    <style>
+        :root {
+            --navy: #1a237e;
+            --navy-light: #283593;
+            --gold: #ffc107;
+            --gold-dark: #ff8f00;
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --bg-code: #1e1e1e;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --border: #30363d;
+            --green: #4ec9b0;
+            --blue: #569cd6;
+            --orange: #ce9178;
+            --purple: #c586c0;
+            --yellow: #dcdcaa;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            padding: 2rem;
+            border-bottom: 3px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { font-size: 1.3rem; color: #fff; }
+        .header .nav-links a {
+            color: var(--gold);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .header .nav-links a:hover { text-decoration: underline; }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+        h2 {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        h3 {
+            color: var(--text);
+            font-size: 1.15rem;
+            margin: 1.5rem 0 0.75rem;
+        }
+        p { margin-bottom: 1rem; }
+        ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.4rem; }
+        code {
+            background: var(--bg-code);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 0.9em;
+            color: var(--green);
+        }
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: var(--text); }
+        .keyword { color: var(--purple); }
+        .function { color: var(--yellow); }
+        .string { color: var(--orange); }
+        .comment { color: var(--text-muted); font-style: italic; }
+        .number { color: var(--green); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            padding: 0.6rem 0.8rem;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        th { background: var(--navy); color: var(--gold); font-weight: 600; }
+        tr:nth-child(even) { background: var(--bg-card); }
+        .callout {
+            background: var(--bg-card);
+            border-left: 4px solid var(--gold);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .callout-title {
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .nav-footer a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-footer a:hover { text-decoration: underline; }
+        @media (max-width: 600px) {
+            .header-inner { flex-direction: column; gap: 0.5rem; }
+            .container { padding: 1rem; }
+            pre { font-size: 0.8rem; }
+        }
+        @media print {
+            body { background: #fff; color: #000; }
+            .header { position: static; background: #1a237e; }
+            pre { border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-inner">
+            <h1>Module 1: Introduction to R and RStudio</h1>
+            <div class="nav-links">
+                <a href="index.html">← Home</a>
+                <a href="module2.html">Next →</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+        <h2>What is Statistics?</h2>
+        <p>Statistics is the methodology of extracting useful information from a data set. Numerical results must be accompanied with clearly stated actionable business insights.</p>
+        
+        <h3>Two Main Branches</h3>
+        <table>
+            <tr><th>Branch</th><th>Purpose</th></tr>
+            <tr><td><strong>Descriptive</strong></td><td>Collecting, organizing, and presenting data</td></tr>
+            <tr><td><strong>Inferential</strong></td><td>Drawing conclusions about a population based on sample data</td></tr>
+        </table>
+
+        <div class="callout">
+            <div class="callout-title">💡 Key Insight</div>
+            <p>AI dominates descriptive statistics (automation of summaries and visualizations). Human judgment remains essential for inferential statistics — defining populations, assessing representativeness, and interpreting results in context.</p>
+        </div>
+
+        <h2>Setting Up R</h2>
+        <h3>The Prolog</h3>
+        <p>Every R script should start with a prolog — a set of comments identifying the file:</p>
+        <pre><code><span class="comment">####################################</span>
+<span class="comment"># Project name: Module 1</span>
+<span class="comment"># Project purpose: Learn R basics</span>
+<span class="comment"># Code author name: [Your Name]</span>
+<span class="comment"># Date last edited: [Date]</span>
+<span class="comment"># Data used: NA</span>
+<span class="comment"># Libraries used: tidyverse</span>
+<span class="comment">####################################</span></code></pre>
+
+        <h3>Assignment Operator</h3>
+        <p>Use <code>&lt;-</code> to assign values to objects. The <code>=</code> sign works but is discouraged because it has other meanings in R.</p>
+        <pre><code>states <span class="keyword">&lt;-</span> <span class="number">29</span>
+name <span class="keyword">&lt;-</span> <span class="string">"Alice"</span></code></pre>
+
+        <h2>Naming Conventions</h2>
+        <table>
+            <tr><th>Object Type</th><th>Convention</th><th>Example</th></tr>
+            <tr><td>Constant</td><td>k + CamelCase</td><td><code>kStates</code></td></tr>
+            <tr><td>Function</td><td>CamelCase, first letter capitalized</td><td><code>MultiplyByTwo</code></td></tr>
+            <tr><td>Variable</td><td>dot.case or camelCase</td><td><code>filled.script.month</code></td></tr>
+            <tr><td>Dataset</td><td>Short, lowercase or camelCase</td><td><code>gig</code>, <code>gss.2016</code></td></tr>
+        </table>
+
+        <h2>Vectors</h2>
+        <p>A vector is the simplest data structure in R — a set of elements of the same type.</p>
+        <pre><code><span class="comment"># Four ways to create vectors</span>
+<span class="function">c</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)          <span class="comment"># combine values</span>
+<span class="number">1</span>:<span class="number">10</span>                        <span class="comment"># integer sequence</span>
+<span class="function">seq</span>(<span class="number">0</span>, <span class="number">30</span>, <span class="number">5</span>)              <span class="comment"># custom sequence: 0, 5, 10, ..., 30</span>
+<span class="function">rep</span>(<span class="number">1</span>:<span class="number">3</span>, times = <span class="number">4</span>)        <span class="comment"># repeat: 1 2 3 1 2 3 1 2 3 1 2 3</span>
+
+x <span class="keyword">&lt;-</span> <span class="function">c</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">100</span>, <span class="number">-10</span>, <span class="number">40</span>)
+<span class="function">sort</span>(x)                     <span class="comment"># ascending</span>
+<span class="function">sort</span>(x, decreasing = <span class="keyword">TRUE</span>) <span class="comment"># descending</span>
+<span class="function">mean</span>(x)                     <span class="comment"># average</span>
+<span class="function">max</span>(x) - <span class="function">min</span>(x)             <span class="comment"># range</span></code></pre>
+
+        <h2>Data Frames</h2>
+        <p>A data frame is a table where rows are observations and columns are variables. Each column can hold a different data type.</p>
+        <pre><code>state <span class="keyword">&lt;-</span> <span class="function">c</span>(<span class="string">"Alaska"</span>, <span class="string">"Arizona"</span>, <span class="string">"Arkansas"</span>)
+year <span class="keyword">&lt;-</span> <span class="function">c</span>(<span class="number">1998</span>, <span class="number">2010</span>, <span class="number">2016</span>)
+limit <span class="keyword">&lt;-</span> <span class="function">c</span>(<span class="number">1</span>, <span class="number">2.5</span>, <span class="number">3</span>)
+
+df <span class="keyword">&lt;-</span> <span class="function">data.frame</span>(state, year, limit)
+<span class="function">ncol</span>(df)   <span class="comment"># 3 columns</span>
+<span class="function">nrow</span>(df)   <span class="comment"># 3 rows</span>
+<span class="function">dim</span>(df)    <span class="comment"># 3 3</span></code></pre>
+
+        <h2>Loading Data</h2>
+        <pre><code><span class="comment"># Base R</span>
+gig <span class="keyword">&lt;-</span> <span class="function">read.csv</span>(<span class="string">"data/gig.csv"</span>)
+
+<span class="comment"># Tidyverse (faster, better defaults)</span>
+<span class="function">library</span>(tidyverse)
+gig <span class="keyword">&lt;-</span> <span class="function">read_csv</span>(<span class="string">"data/gig.csv"</span>)
+
+<span class="comment"># Always use RELATIVE paths</span>
+<span class="comment"># Good:  "data/file.csv"</span>
+<span class="comment"># Bad:   "C:/Users/name/Documents/data/file.csv"</span></code></pre>
+
+        <div class="callout">
+            <div class="callout-title">⚠️ Relative vs Absolute Paths</div>
+            <p>Always use relative paths (<code>"data/file.csv"</code>) instead of absolute paths. Absolute paths break when you share code or move to a different machine. Never use <code>setwd()</code> in .Rmd files.</p>
+        </div>
+
+        <h2>Data Types</h2>
+        <table>
+            <tr><th>Type</th><th>What It Stores</th><th>Example</th></tr>
+            <tr><td><code>factor</code></td><td>Categories (nominal/ordinal)</td><td>Industry, Grade</td></tr>
+            <tr><td><code>numeric</code></td><td>Real numbers</td><td>Wage, GPA</td></tr>
+            <tr><td><code>integer</code></td><td>Whole numbers</td><td>Count, ID</td></tr>
+            <tr><td><code>character</code></td><td>Text strings</td><td>Name, ZIP</td></tr>
+            <tr><td><code>logical</code></td><td>TRUE / FALSE</td><td>Is loyal?</td></tr>
+            <tr><td><code>Date</code></td><td>Calendar dates</td><td>Hire date</td></tr>
+        </table>
+        <pre><code><span class="comment"># Check types</span>
+<span class="function">str</span>(gig)              <span class="comment"># all types at once</span>
+<span class="function">class</span>(gig$Wage)       <span class="comment"># specific variable</span>
+
+<span class="comment"># Fix types</span>
+gig$Industry <span class="keyword">&lt;-</span> <span class="function">as.factor</span>(gig$Industry)
+gig$Wage <span class="keyword">&lt;-</span> <span class="function">as.numeric</span>(gig$Wage)
+
+<span class="comment"># WARNING: as.numeric() returns NA for unconvertible text</span>
+<span class="comment"># Always check: sum(is.na(x)) after coercion</span></code></pre>
+
+        <h2>Missing Data</h2>
+        <table>
+            <tr><th>Strategy</th><th>When to Use</th><th>R Function</th></tr>
+            <tr><td><strong>Omit</strong></td><td>Few NAs, missingness is random</td><td><code>na.omit()</code>, <code>drop_na()</code></td></tr>
+            <tr><td><strong>Impute</strong></td><td>Many NAs, can't lose rows</td><td>Replace with mean/median</td></tr>
+            <tr><td><strong>Ignore</strong></td><td>Function supports it</td><td><code>na.rm = TRUE</code></td></tr>
+        </table>
+        <pre><code><span class="comment"># Count NAs</span>
+<span class="function">sum</span>(<span class="function">is.na</span>(gig))              <span class="comment"># total in dataset</span>
+<span class="function">sum</span>(<span class="function">is.na</span>(gig$Wage))         <span class="comment"># in one variable</span>
+
+<span class="comment"># Remove rows with NAs</span>
+clean <span class="keyword">&lt;-</span> <span class="function">na.omit</span>(gig)         <span class="comment"># base R</span>
+clean <span class="keyword">&lt;-</span> gig <span class="keyword">%>%</span> <span class="function">drop_na</span>()   <span class="comment"># tidyverse</span>
+
+<span class="comment"># Ignore NAs in calculations</span>
+<span class="function">mean</span>(gig$Wage, na.rm = <span class="keyword">TRUE</span>)</code></pre>
+
+        <div class="callout">
+            <div class="callout-title">💡 The Data Loading Workflow</div>
+            <p><strong>Load → Check types (str) → Fix types → Handle NAs → Analyze</strong><br>
+            This sequence applies to every dataset you'll ever work with. Build it as muscle memory.</p>
+        </div>
+
+        <h2>Packages</h2>
+        <pre><code><span class="comment"># Install once (then comment out)</span>
+<span class="comment"># install.packages('tidyverse')</span>
+
+<span class="comment"># Load every session</span>
+<span class="function">library</span>(tidyverse)
+
+<span class="comment"># Use one function without loading entire library</span>
+dplyr::<span class="function">summarize</span>(data, <span class="function">mean</span>(Wage))</code></pre>
+
+        <h2>Key Takeaways</h2>
+        <ul>
+            <li><strong>R is learned by doing</strong> — type every example, don't just read</li>
+            <li><strong>Silent errors are the real danger</strong> — code runs but gives wrong output</li>
+            <li><strong>Always check types after loading</strong> — wrong types cause wrong results</li>
+            <li><strong>Use relative paths</strong> — makes code portable and shareable</li>
+            <li><strong>AI writes code; you verify it</strong> — understand what every line does</li>
+        </ul>
+
+        <div class="nav-footer">
+            <a href="index.html">← Home</a>
+            <a href="module2.html">Module 2: Descriptive Statistics →</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R &amp; Statistics Study Book</title>
+    <style>
+        :root {
+            --navy: #1a237e;
+            --navy-light: #283593;
+            --gold: #ffc107;
+            --gold-dark: #ff8f00;
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --bg-code: #1e1e1e;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --border: #30363d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 400;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        .intro {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .intro p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        .modules-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        .module-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.2s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .module-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .module-card .number {
+            background: var(--navy);
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .module-card .info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        .module-card .info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .module-card.coming-soon {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .module-card.coming-soon .info p::after {
+            content: " — coming soon";
+            font-style: italic;
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+        .footer a { color: var(--gold); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8rem; }
+            .container { padding: 1rem; }
+        }
+        @media print {
+            body { background: #fff; color: #000; }
+            .header { background: #1a237e; }
+            .module-card { border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>R &amp; Statistics Study Book</h1>
+        <div class="subtitle">A free, interactive guide to probability, statistics, and R programming</div>
+    </div>
+    <div class="container">
+        <div class="intro">
+            <p>A self-contained study resource covering foundational statistics and R programming — from loading data and fixing types through hypothesis testing and regression. Built from graduate-level coursework and designed for anyone learning R for data analysis. Open in any browser, no account required.</p>
+        </div>
+        <div class="modules-grid">
+            <a href="module1.html" class="module-card">
+                <div class="number">01</div>
+                <div class="info">
+                    <h3>Introduction to R and RStudio</h3>
+                    <p>Setup, objects, vectors, data frames, data types, missing values</p>
+                </div>
+            </a>
+            <a href="module2.html" class="module-card coming-soon">
+                <div class="number">02</div>
+                <div class="info">
+                    <h3>Descriptive Statistics</h3>
+                    <p>Central tendency, spread, skewness, kurtosis, histograms, boxplots</p>
+                </div>
+            </a>
+            <a href="module3.html" class="module-card coming-soon">
+                <div class="number">03</div>
+                <div class="info">
+                    <h3>Probability Foundations</h3>
+                    <p>Probability rules, conditional probability, Bayes' theorem</p>
+                </div>
+            </a>
+            <a href="module4.html" class="module-card coming-soon">
+                <div class="number">04</div>
+                <div class="info">
+                    <h3>Probability Distributions</h3>
+                    <p>Normal, binomial, Poisson distributions and applications</p>
+                </div>
+            </a>
+            <a href="module5.html" class="module-card coming-soon">
+                <div class="number">05</div>
+                <div class="info">
+                    <h3>Confidence Intervals</h3>
+                    <p>Estimation, margin of error, sample size determination</p>
+                </div>
+            </a>
+            <a href="module6.html" class="module-card coming-soon">
+                <div class="number">06</div>
+                <div class="info">
+                    <h3>Hypothesis Testing</h3>
+                    <p>t-tests, ANOVA, chi-square, p-values, statistical significance</p>
+                </div>
+            </a>
+            <a href="module7.html" class="module-card coming-soon">
+                <div class="number">07</div>
+                <div class="info">
+                    <h3>Correlation &amp; Regression</h3>
+                    <p>Linear regression, correlation coefficients, model interpretation</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Built by <a href="https://github.com/nwfreidline">nwfreidline</a> · Free educational resource · Not affiliated with any institution</p>
+    </div>
+</body>
+</html>
