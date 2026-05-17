@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2: Descriptive Statistics</title>
+    <style>
+        :root {
+            --navy: #1a237e;
+            --navy-light: #283593;
+            --gold: #ffc107;
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --bg-code: #1e1e1e;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --border: #30363d;
+            --green: #4ec9b0;
+            --blue: #569cd6;
+            --orange: #ce9178;
+            --purple: #c586c0;
+            --yellow: #dcdcaa;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            padding: 2rem;
+            border-bottom: 3px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { font-size: 1.3rem; color: #fff; }
+        .header .nav-links a {
+            color: var(--gold);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .header .nav-links a:hover { text-decoration: underline; }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+        h2 {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        h3 {
+            color: var(--text);
+            font-size: 1.15rem;
+            margin: 1.5rem 0 0.75rem;
+        }
+        p { margin-bottom: 1rem; }
+        ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.4rem; }
+        code {
+            background: var(--bg-code);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 0.9em;
+            color: var(--green);
+        }
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: var(--text); }
+        .keyword { color: var(--purple); }
+        .function { color: var(--yellow); }
+        .string { color: var(--orange); }
+        .comment { color: var(--text-muted); font-style: italic; }
+        .number { color: var(--green); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            padding: 0.6rem 0.8rem;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        th { background: var(--navy); color: var(--gold); font-weight: 600; }
+        tr:nth-child(even) { background: var(--bg-card); }
+        .callout {
+            background: var(--bg-card);
+            border-left: 4px solid var(--gold);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .callout-title {
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .nav-footer a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-footer a:hover { text-decoration: underline; }
+        @media (max-width: 600px) {
+            .header-inner { flex-direction: column; gap: 0.5rem; }
+            .container { padding: 1rem; }
+            pre { font-size: 0.8rem; }
+        }
+        @media print {
+            body { background: #fff; color: #000; }
+            .header { position: static; background: #1a237e; }
+            pre { border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-inner">
+            <h1>Module 2: Descriptive Statistics</h1>
+            <div class="nav-links">
+                <a href="module1.html">← Previous</a>
+                <a href="index.html">Home</a>
+                <a href="module3.html">Next →</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+        <h2>Three Questions Every Summary Should Answer</h2>
+        <table>
+            <tr><th>Question</th><th>What It Measures</th><th>Tools</th></tr>
+            <tr><td>What is typical?</td><td>Central tendency</td><td>mean, median, mode</td></tr>
+            <tr><td>How spread out?</td><td>Variability</td><td>SD, variance, IQR, range</td></tr>
+            <tr><td>What shape?</td><td>Distribution</td><td>skewness, kurtosis, histograms</td></tr>
+        </table>
+
+        <div class="callout">
+            <div class="callout-title">💡 AI vs. Your Judgment</div>
+            <p>AI computes summaries instantly. <strong>You</strong> decide which summary is honest for your data, and you explain what it means in context. A mean wage of $42 means something very different depending on whether the data is symmetric or heavily skewed by a few executives.</p>
+        </div>
+
+        <h2>Measures of Central Tendency</h2>
+
+        <h3>Mean</h3>
+        <p>The arithmetic average. Best when data is symmetric with no extreme outliers.</p>
+        <pre><code>salaries <span class="keyword">&lt;-</span> <span class="function">c</span>(<span class="number">40000</span>, <span class="number">40000</span>, <span class="number">65000</span>, <span class="number">90000</span>, <span class="number">145000</span>, <span class="number">150000</span>, <span class="number">550000</span>)
+<span class="function">mean</span>(salaries)
+<span class="comment"># [1] 154285.7  — pulled high by the outlier</span>
+
+<span class="comment"># With NAs present, use na.rm</span>
+<span class="function">mean</span>(salaries2, na.rm = <span class="keyword">TRUE</span>)</code></pre>
+
+        <h3>Median</h3>
+        <p>The middle value when sorted. Not affected by outliers — use when data is skewed.</p>
+        <pre><code><span class="function">median</span>(salaries)
+<span class="comment"># [1] 90000  — much more representative of "typical"</span>
+
+<span class="comment"># If mean ≠ median → likely skewed with outliers</span></code></pre>
+
+        <h3>Mode</h3>
+        <p>The most frequently occurring value. Useful for categorical data.</p>
+        <pre><code><span class="comment"># R has no built-in mode function for this purpose</span>
+<span class="comment"># Use sort(table()) to find most frequent values</span>
+<span class="function">sort</span>(<span class="function">table</span>(salaries), decreasing = <span class="keyword">TRUE</span>)[<span class="number">1</span>:<span class="number">5</span>]
+
+<span class="comment"># If highest frequency is 1 → no mode</span></code></pre>
+
+        <h3>When to Use Which</h3>
+        <table>
+            <tr><th>Measure</th><th>Use When</th><th>Weakness</th></tr>
+            <tr><td>Mean</td><td>Data is symmetric, no extreme outliers</td><td>Pulled by outliers</td></tr>
+            <tr><td>Median</td><td>Data is skewed or outliers present</td><td>Ignores magnitude of values</td></tr>
+            <tr><td>Mode</td><td>Categorical data, or need most common value</td><td>May not exist or be unique</td></tr>
+        </table>
+
+        <h2>Measures of Spread</h2>
+
+        <h3>Spread Relative to the Mean</h3>
+        <pre><code><span class="comment"># Variance and Standard Deviation</span>
+<span class="function">var</span>(salaries)    <span class="comment"># variance (squared units)</span>
+<span class="function">sd</span>(salaries)     <span class="comment"># standard deviation (same units as data)</span></code></pre>
+
+        <h3>Spread Relative to the Median</h3>
+        <pre><code><span class="comment"># Range: max - min</span>
+<span class="function">max</span>(data$Spending) - <span class="function">min</span>(data$Spending)
+<span class="comment"># or</span>
+<span class="function">diff</span>(<span class="function">range</span>(data$Spending))
+
+<span class="comment"># IQR: middle 50% of data (Q3 - Q1)</span>
+<span class="function">IQR</span>(data$Spending, na.rm = <span class="keyword">TRUE</span>)</code></pre>
+
+        <h2>Skewness</h2>
+        <p>Measures how asymmetric a distribution is. Use the <code>skew()</code> function from the <code>semTools</code> package.</p>
+        <pre><code><span class="function">library</span>(semTools)
+<span class="function">skew</span>(salaries)
+<span class="comment"># Output: skew (g1), se, z, p</span>
+<span class="comment"># Evaluate the z-value against thresholds:</span></code></pre>
+
+        <h3>Z-Score Thresholds for Skewness &amp; Kurtosis</h3>
+        <table>
+            <tr><th>Sample Size</th><th>Problematic z Range</th></tr>
+            <tr><td>n &lt; 50 (small)</td><td>Outside &minus;2 to 2</td></tr>
+            <tr><td>50 &le; n &le; 300 (medium)</td><td>Outside &minus;3.29 to 3.29</td></tr>
+            <tr><td>n &gt; 300 (large)</td><td>Outside &minus;7 to 7 (prefer visuals)</td></tr>
+        </table>
+
+        <h3>Interpreting Direction</h3>
+        <ul>
+            <li><strong>Positive skew (right-skewed)</strong>: longer tail to the right, mean &gt; median</li>
+            <li><strong>Negative skew (left-skewed)</strong>: longer tail to the left, mean &lt; median</li>
+            <li><strong>Zero skew</strong>: symmetric distribution, mean ≈ median</li>
+        </ul>
+
+        <h2>Kurtosis</h2>
+        <p>Measures how many observations are in the tails. The <code>kurtosis()</code> function from semTools subtracts 3, so compare to 0.</p>
+        <pre><code><span class="function">kurtosis</span>(salaries)
+<span class="comment"># Output: Excess Kur (g2), se, z, p</span>
+<span class="comment"># Same z-thresholds as skewness apply</span></code></pre>
+        <table>
+            <tr><th>Type</th><th>Excess Kurtosis</th><th>Meaning</th></tr>
+            <tr><td>Mesokurtic</td><td>≈ 0</td><td>Normal tails</td></tr>
+            <tr><td>Leptokurtic</td><td>&gt; 0 (significant)</td><td>Heavy tails, sharp peak</td></tr>
+            <tr><td>Platykurtic</td><td>&lt; 0 (significant)</td><td>Light tails, flat peak</td></tr>
+        </table>
+
+        <h2>Visualizing Quantitative Data</h2>
+
+        <h3>Histogram</h3>
+        <p>Shows distribution shape by grouping values into bins. The key parameter is <code>binwidth</code>.</p>
+        <pre><code><span class="function">ggplot</span>(data, <span class="function">aes</span>(x = salary_usd)) +
+  <span class="function">geom_histogram</span>(binwidth = <span class="number">15000</span>, fill = <span class="string">"steelblue"</span>, color = <span class="string">"white"</span>) +
+  <span class="function">labs</span>(title = <span class="string">"Distribution of Salary"</span>,
+       x = <span class="string">"Salary (USD)"</span>, y = <span class="string">"Count"</span>)</code></pre>
+
+        <h3>Density Plot</h3>
+        <p>A smoothed histogram. Add a mean line with <code>geom_vline()</code>.</p>
+        <pre><code><span class="function">ggplot</span>(data, <span class="function">aes</span>(x = salary_usd)) +
+  <span class="function">geom_density</span>(fill = <span class="string">"lavender"</span>, color = <span class="string">"purple"</span>, alpha = <span class="number">0.6</span>) +
+  <span class="function">geom_vline</span>(<span class="function">aes</span>(xintercept = <span class="function">mean</span>(salary_usd, na.rm = <span class="keyword">TRUE</span>)),
+             color = <span class="string">"red"</span>, linetype = <span class="string">"dashed"</span>) +
+  <span class="function">labs</span>(title = <span class="string">"Salary Density"</span>, x = <span class="string">"Salary"</span>, y = <span class="string">"Density"</span>)</code></pre>
+
+        <h3>Boxplot</h3>
+        <p>Summarizes the five-number summary and flags outliers (points beyond 1.5 × IQR).</p>
+        <pre><code><span class="comment"># Single variable</span>
+<span class="function">ggplot</span>(data, <span class="function">aes</span>(x = salary_usd)) +
+  <span class="function">geom_boxplot</span>(fill = <span class="string">"lightblue"</span>, color = <span class="string">"navy"</span>)
+
+<span class="comment"># Grouped by category</span>
+<span class="function">ggplot</span>(data, <span class="function">aes</span>(x = salary_usd, fill = company_size)) +
+  <span class="function">geom_boxplot</span>() +
+  <span class="function">labs</span>(title = <span class="string">"Salary by Company Size"</span>)</code></pre>
+
+        <h3>Detecting Outliers Numerically</h3>
+        <pre><code>Q1 <span class="keyword">&lt;-</span> <span class="function">quantile</span>(data$salary_usd, <span class="number">0.25</span>)
+Q3 <span class="keyword">&lt;-</span> <span class="function">quantile</span>(data$salary_usd, <span class="number">0.75</span>)
+IQR_val <span class="keyword">&lt;-</span> <span class="function">IQR</span>(data$salary_usd)
+
+LowerBound <span class="keyword">&lt;-</span> Q1 - <span class="number">1.5</span> * IQR_val
+UpperBound <span class="keyword">&lt;-</span> Q3 + <span class="number">1.5</span> * IQR_val
+
+<span class="comment"># Any value outside these bounds is a potential outlier</span></code></pre>
+
+        <h2>Summarizing Categorical Data</h2>
+
+        <h3>Frequency Tables</h3>
+        <pre><code><span class="comment"># Frequencies</span>
+freq <span class="keyword">&lt;-</span> <span class="function">table</span>(data$company_size)
+
+<span class="comment"># Relative frequencies (proportions)</span>
+prop <span class="keyword">&lt;-</span> <span class="function">prop.table</span>(freq)
+
+<span class="comment"># Cumulative frequencies</span>
+cumfreq <span class="keyword">&lt;-</span> <span class="function">cumsum</span>(freq)
+
+<span class="comment"># Combine into a table</span>
+<span class="function">rbind</span>(freq, prop, cumfreq)</code></pre>
+
+        <h3>Bar Chart</h3>
+        <pre><code><span class="function">ggplot</span>(data, <span class="function">aes</span>(x = company_size, fill = company_size)) +
+  <span class="function">geom_bar</span>(show.legend = <span class="keyword">FALSE</span>) +
+  <span class="function">labs</span>(title = <span class="string">"Job Postings by Company Size"</span>,
+       x = <span class="string">"Company Size"</span>, y = <span class="string">"Count"</span>) +
+  <span class="function">scale_fill_manual</span>(values = <span class="function">c</span>(<span class="string">"tomato"</span>, <span class="string">"steelblue"</span>, <span class="string">"seagreen"</span>))</code></pre>
+
+        <h2>Key Takeaways</h2>
+        <ul>
+            <li><strong>Mean vs. Median</strong>: If they differ substantially, the data is skewed — report the median</li>
+            <li><strong>Always visualize</strong>: Numbers alone can mislead; histograms and boxplots confirm the story</li>
+            <li><strong>Skewness z-scores</strong>: Use sample-size thresholds, not arbitrary cutoffs</li>
+            <li><strong>Outliers are not errors</strong>: Investigate before removing</li>
+            <li><strong>Categorical data</strong>: Use <code>table()</code> + <code>prop.table()</code>, visualize with bar charts</li>
+            <li><strong>ggplot2 layers</strong>: Build charts incrementally with <code>+</code></li>
+        </ul>
+
+        <div class="callout">
+            <div class="callout-title">📐 The Descriptive Stats Workflow</div>
+            <p><strong>Load data → Check types → Central tendency → Spread → Shape (skew/kurtosis) → Visualize → Confirm numbers match visuals</strong></p>
+        </div>
+
+        <div class="nav-footer">
+            <a href="module1.html">← Module 1: Intro to R</a>
+            <a href="module3.html">Module 3: Probability →</a>
+        </div>
+    </div>
+</body>
+</html>
