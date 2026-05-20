@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 3: Data Preparation — R &amp; Statistics Study Book</title>
+<style>
+:root{--navy:#1a237e;--navy-light:#283593;--gold:#ffc107;--gold-dark:#ff8f00;--bg:#0d1117;--bg-card:#161b22;--bg-code:#1e1e1e;--text:#e6edf3;--text-muted:#8b949e;--border:#30363d}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);padding:2.5rem 2rem;text-align:center;border-bottom:3px solid var(--gold)}
+.header h1{font-size:2rem;color:#fff;margin-bottom:.3rem}
+.header .subtitle{color:var(--gold);font-size:1rem}
+.nav-bar{background:var(--bg-card);border-bottom:1px solid var(--border);padding:.75rem 1.5rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.nav-bar a{color:var(--text-muted);text-decoration:none;font-size:.85rem;padding:.25rem .5rem;border-radius:4px}
+.nav-bar a:hover{color:var(--gold);background:rgba(255,193,7,.1)}
+.container{max-width:860px;margin:0 auto;padding:2rem 1.5rem}
+h2{color:var(--gold);font-size:1.5rem;margin:2.5rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{color:var(--text);font-size:1.15rem;margin:1.5rem 0 .75rem}
+p{margin:.75rem 0}
+code{background:var(--bg-code);padding:2px 6px;border-radius:4px;font-family:'Cascadia Code','Fira Code',monospace;font-size:.85em;color:var(--gold)}
+pre{background:var(--bg-code);padding:1.25rem;border-radius:8px;overflow-x:auto;margin:1rem 0;font-size:.85rem;font-family:'Cascadia Code','Fira Code',monospace;border:1px solid var(--border);line-height:1.6}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+th{background:var(--navy-light);color:var(--gold);padding:.6rem .8rem;text-align:left;border:1px solid var(--border)}
+td{padding:.6rem .8rem;border:1px solid var(--border)}
+tr:nth-child(even){background:var(--bg-card)}
+ul,ol{margin:.75rem 0 .75rem 1.5rem}
+li{margin:.4rem 0}
+.callout{background:var(--bg-card);border-left:4px solid var(--gold);padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 8px 8px 0}
+.callout strong{color:var(--gold)}
+.footer{text-align:center;padding:2rem;color:var(--text-muted);font-size:.85rem;border-top:1px solid var(--border);margin-top:3rem}
+.footer a{color:var(--gold);text-decoration:none}
+@media(max-width:600px){.header h1{font-size:1.5rem}.container{padding:1rem}}
+@media print{body{background:#fff;color:#000}.header{background:#1a237e}h2,code,strong{color:#1a237e}pre,code{background:#f5f5f5;color:#000;border:1px solid #ddd}th{background:#e8eaf6;color:#1a237e}}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>Module 3: Data Preparation</h1>
+<div class="subtitle">Data types, dplyr verbs, pipes, missing data, grouped summaries, and visualization</div>
+</div>
+<div class="nav-bar">
+<a href="index.html">← Home</a>
+<a href="module2.html">← Module 2</a>
+<a href="#types">Data Types</a>
+<a href="#dplyr">dplyr Verbs</a>
+<a href="#pipe">Pipe Operator</a>
+<a href="#missing">Missing Data</a>
+<a href="#groupby">Group &amp; Summarize</a>
+<a href="#viz">Visualization</a>
+</div>
+<div class="container">
+
+<h2>Overview</h2>
+<p>Data preparation is the process of inspecting, cleaning, and reshaping a dataset so it is ready for analysis. This is where most analytical errors are introduced — a wrong data type or undetected missing value will silently corrupt every result downstream.</p>
+<div class="callout"><strong>The workflow:</strong> Inspect first → Clean deliberately → Verify visually. Always run <code>summary()</code> before touching anything else.</div>
+
+<h2 id="types">Data Types and Coercion</h2>
+<p>R assigns a type to every variable when a dataset is loaded. The wrong type causes silent errors — a number stored as character breaks <code>mean()</code> without warning.</p>
+
+<h3>Common Data Types</h3>
+<table>
+<tr><th>Type</th><th>What It Stores</th><th>Check</th><th>Convert</th></tr>
+<tr><td>Factor</td><td>Categories (nominal or ordinal)</td><td><code>is.factor(x)</code></td><td><code>as.factor(x)</code></td></tr>
+<tr><td>Numeric</td><td>Continuous numbers</td><td><code>is.numeric(x)</code></td><td><code>as.numeric(x)</code></td></tr>
+<tr><td>Integer</td><td>Whole numbers</td><td><code>is.integer(x)</code></td><td><code>as.integer(x)</code></td></tr>
+<tr><td>Character</td><td>Text strings</td><td><code>is.character(x)</code></td><td><code>as.character(x)</code></td></tr>
+<tr><td>Logical</td><td>TRUE / FALSE</td><td><code>is.logical(x)</code></td><td>Comparison operators</td></tr>
+</table>
+
+<h3>Loading Data with Correct Types</h3>
+<pre>library(tidyverse)
+data &lt;- read.csv("data/myfile.csv", stringsAsFactors = TRUE)</pre>
+<p>The <code>stringsAsFactors = TRUE</code> argument converts text columns to factors automatically — saving manual <code>as.factor()</code> calls and making <code>summary()</code> output useful.</p>
+
+<h3>Coercion Pitfall</h3>
+<p>Applying <code>as.numeric()</code> directly to a factor returns internal level codes (1, 2, 3...), not the actual values. Fix: <code>as.numeric(as.character(x))</code></p>
+
+<h2 id="dplyr">The dplyr Toolkit</h2>
+<p>dplyr provides functions that each do one thing cleanly. The power comes from chaining them together.</p>
+
+<table>
+<tr><th>Verb</th><th>Purpose</th><th>Example</th></tr>
+<tr><td><code>filter()</code></td><td>Keep rows matching a condition</td><td><code>filter(data, Age > 30)</code></td></tr>
+<tr><td><code>select()</code></td><td>Keep specific columns</td><td><code>select(data, Name, Age)</code></td></tr>
+<tr><td><code>arrange()</code></td><td>Sort rows</td><td><code>arrange(data, desc(Score))</code></td></tr>
+<tr><td><code>mutate()</code></td><td>Create/modify columns</td><td><code>mutate(data, BMI = Weight/Height^2)</code></td></tr>
+<tr><td><code>summarize()</code></td><td>Collapse to summary stats</td><td><code>summarize(data, avg = mean(Score))</code></td></tr>
+<tr><td><code>group_by()</code></td><td>Set up groups for summarize</td><td><code>group_by(data, Region)</code></td></tr>
+</table>
+
+<h3>filter() — Subset Rows</h3>
+<pre># Single condition
+adults &lt;- filter(data, Age >= 18)
+
+# AND (both must be true)
+result &lt;- filter(data, Age >= 18 &amp; Income > 50000)
+
+# OR (either can be true)
+result &lt;- filter(data, Region == "East" | Region == "West")</pre>
+
+<h3>select() — Choose Columns</h3>
+<pre>small &lt;- select(data, Name, Age, Income)</pre>
+
+<h3>arrange() — Sort</h3>
+<pre># Ascending (default)
+sorted &lt;- arrange(data, Age)
+
+# Descending
+sorted &lt;- arrange(data, desc(Income))</pre>
+<div class="callout"><strong>Key distinction:</strong> <code>sort()</code> works on vectors. <code>arrange()</code> works on data frames.</div>
+
+<h3>mutate() — Create New Columns</h3>
+<pre># Calculated column
+data &lt;- mutate(data, Profit = Revenue - Cost)
+
+# Binary category with ifelse
+data &lt;- mutate(data, Category = ifelse(Score > 80, "High", "Low"))
+
+# Multiple categories with case_when
+data &lt;- data %&gt;% mutate(Tier = case_when(
+  Score > 90 ~ "A",
+  Score > 70 ~ "B",
+  Score > 50 ~ "C",
+  TRUE ~ "D"
+))</pre>
+
+<h2 id="pipe">The Pipe Operator (%>%)</h2>
+<p>The pipe takes the output of the left side and passes it as the first argument to the right side. It turns nested function calls into readable top-to-bottom pipelines.</p>
+
+<pre># Without pipe (hard to read)
+head(arrange(select(filter(data, Age > 30), Name, Income), desc(Income)))
+
+# With pipe (reads like a sentence)
+data %&gt;%
+  filter(Age > 30) %&gt;%
+  select(Name, Income) %&gt;%
+  arrange(desc(Income)) %&gt;%
+  head()</pre>
+
+<h2 id="missing">Handling Missing Data</h2>
+<p>Missing values (<code>NA</code>) are common and must be handled deliberately. The choice depends on why data is missing.</p>
+
+<h3>Three Strategies</h3>
+<ol>
+<li><strong>Omission</strong> — Remove rows with NAs. Risk: reduces sample size, may introduce bias.</li>
+<li><strong>Imputation</strong> — Replace NAs with a reasonable value (mean for numeric, mode for categorical). Risk: distorts relationships if many values are missing.</li>
+<li><strong>Ignore</strong> — Use <code>na.rm = TRUE</code> in functions that support it. Simplest when few NAs exist.</li>
+</ol>
+
+<h3>Key Functions</h3>
+<pre># Detect NAs
+sum(is.na(data))              # Count all NAs in dataset
+sum(is.na(data$column))       # Count NAs in one column
+
+# Ignore NAs in calculations
+mean(data$Score, na.rm = TRUE)
+
+# Remove rows with NAs
+clean &lt;- na.omit(data)              # Base R: removes if ANY column has NA
+clean &lt;- data %&gt;% drop_na()        # Tidyverse: same behavior
+clean &lt;- data %&gt;% drop_na(Score)   # Tidyverse: only where Score is NA
+
+# Convert specific values to NA
+data &lt;- data %&gt;% mutate(Job = na_if(Job, "Unknown"))</pre>
+
+<div class="callout"><strong>Critical insight:</strong> If NAs are concentrated in a specific group (e.g., one region or demographic), removing them introduces selection bias. Always check <em>where</em> your NAs are before deciding how to handle them.</div>
+
+<h2 id="groupby">Group By and Summarize</h2>
+<p>The <code>group_by() + summarize()</code> pattern is one of the most frequently used in real analysis — comparing statistics across groups is the starting point for almost every business question.</p>
+
+<pre># Mean income by region
+data %&gt;%
+  group_by(Region) %&gt;%
+  summarize(
+    mean_income = mean(Income, na.rm = TRUE),
+    median_income = median(Income, na.rm = TRUE),
+    count = n()
+  )</pre>
+
+<p><code>group_by()</code> doesn't compute anything — it sets up the data so <code>summarize()</code> runs within each group. The result has one row per group.</p>
+
+<h3>Counting</h3>
+<pre># Count observations matching a condition
+data %&gt;% filter(Status == "Active") %&gt;% count()
+
+# Count per group
+data %&gt;% group_by(Region) %&gt;% count()</pre>
+
+<h2 id="viz">Multi-Variable Visualization</h2>
+<p>Visualization serves as a quality check on your data preparation — if the chart looks wrong, the cleaning has a problem.</p>
+
+<h3>Scatterplot — Two Continuous Variables</h3>
+<pre>ggplot(data, aes(x = Age, y = Income)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "Age vs Income", x = "Age", y = "Income ($)")</pre>
+<p>Goal: characterize the relationship — positive, negative, or nonexistent. Add <code>color = GroupVar</code> inside <code>aes()</code> to see patterns by group.</p>
+
+<h3>Grouped Bar Chart — Two Categorical Variables</h3>
+<pre>ggplot(data, aes(x = Region, fill = Status)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Status by Region", x = "Region", y = "Count")</pre>
+<p><code>position = "dodge"</code> places bars side by side. Without it, bars stack.</p>
+
+<h3>Boxplot Across Groups</h3>
+<pre>ggplot(data, aes(x = Region, y = Income, fill = Region)) +
+  geom_boxplot() +
+  theme_minimal()</pre>
+<p>Use when comparing a continuous variable's distribution across categories.</p>
+
+<h3>When to Use Which Chart</h3>
+<table>
+<tr><th>Variables</th><th>Chart Type</th></tr>
+<tr><td>Two continuous</td><td>Scatterplot</td></tr>
+<tr><td>Two categorical</td><td>Grouped or stacked bar chart</td></tr>
+<tr><td>One categorical + one continuous</td><td>Boxplot or bar chart of means</td></tr>
+</table>
+
+<h2>Practice Problems</h2>
+<ol>
+<li>Load a dataset with <code>stringsAsFactors = TRUE</code>. Run <code>summary()</code>. Identify which variables are factors and which are numeric.</li>
+<li>Use <code>filter()</code> with a compound condition (AND) to subset your data. Print the row count with <code>nrow()</code>.</li>
+<li>Use <code>mutate()</code> with <code>ifelse()</code> to create a binary category based on a numeric threshold. Use <code>table()</code> to count each category.</li>
+<li>Use <code>group_by()</code> + <code>summarize()</code> to calculate the mean of a numeric variable for each level of a categorical variable.</li>
+<li>Create a scatterplot with <code>geom_point()</code> and add a trendline with <code>geom_smooth(method = "lm")</code>. Describe the relationship.</li>
+<li>Create a grouped bar chart with <code>position = "dodge"</code>. Which group has the highest count?</li>
+</ol>
+
+<h2>Key Takeaways</h2>
+<ul>
+<li><strong>Always check types first</strong> — <code>summary()</code> + <code>class()</code> before any analysis</li>
+<li><strong>Each dplyr verb does one thing</strong> — power comes from chaining with <code>%>%</code></li>
+<li><strong>Missing data requires judgment</strong> — omission, imputation, or ignore depends on context</li>
+<li><strong>group_by() + summarize() answers business questions</strong> — comparing means across groups</li>
+<li><strong>Visualization verifies your cleaning</strong> — if the chart looks wrong, the data prep has a problem</li>
+</ul>
+
+</div>
+<div class="footer">
+<p><a href="index.html">← Back to Home</a> · <a href="module2.html">← Module 2</a></p>
+<p>Built by <a href="https://github.com/nwfreidline">nwfreidline</a> · Free educational resource</p>
+</div>
+</body>
+</html>
